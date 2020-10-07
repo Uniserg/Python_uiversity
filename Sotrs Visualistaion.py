@@ -8,6 +8,7 @@ class SortsVisualisation(tk.Frame):
     def __init__(self, root, width, height, bg="white"):
         super().__init__(root, width=width, height=height, bg=bg)
         self.root = root
+        self.root.title("Sorts visualization")
         self.cnv = tk.Canvas(root, width=width, height=height, bg=bg)
         self.width = width
         self.height = height
@@ -22,9 +23,8 @@ class SortsVisualisation(tk.Frame):
         y = height - 45
 
         for sort in SortsVisualisation.sorters:
-            btn = tk.Button(self.cnv, text=sort, width=10, fg="white", bg="#3c3f41",
-                            command=lambda s=sort: self.start_sort(eval(f"self.{s}")))
-            btn.place(x=x, y=y)
+            tk.Button(self.cnv, text=sort, width=10, fg="white", bg="#3c3f41",
+                      command=lambda s=sort: self.start_sort(eval(f"self.{s}"))).place(x=x, y=y)
             x += 100
 
     def generate(self):
@@ -52,6 +52,7 @@ class SortsVisualisation(tk.Frame):
                     self._mark(self.graphic_array[l1], self.graphic_array[l2], "#91313d")
                 self.cnv.after(self.latency)
                 self.graphic_array[l1], self.graphic_array[l2] = self.graphic_array[l2], self.graphic_array[l1]
+
         return wrapper
 
     @motion
@@ -125,6 +126,7 @@ class SortsVisualisation(tk.Frame):
                         break
                 _quick_sort(self, low, split_index)
                 _quick_sort(self, split_index + 1, high)
+
         _quick_sort(self, 0, len(self.array) - 1)
 
     @motion

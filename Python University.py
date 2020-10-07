@@ -14,8 +14,8 @@ class Circle:
                 self.center[1] + self.radius)
 
 
-angle = 0
-step = 10e-4 * 7
+angle = pi/2
+step = 10e-4 * 5
 wave_freq = 20
 wave_amp = 30
 
@@ -50,6 +50,7 @@ def processor(func, create_line=True, create_inf=False):
 
         if create_line and (create_inf or abs(angle) <= 2 * pi + step):
             c.create_line(*map(lambda x: x + circle_little.radius, fr + to))
+            # c.create_polygon([300, 300], to, fill="gold",smooth=1,outline="black", width=5)
         c.moveto(circle_little_graphics, *to)
         fr = to
         angle += step
@@ -86,6 +87,10 @@ def task7():
     processor(lambda x, y: (2 - 2 * sin(y) + sin(y) * ((abs(cos(y))) ** (1 / 4) / (sin(y) + 1.8))) * x / 4)
 
 
+def task12():
+    processor(lambda x, y: (2 - 2 * sin(y - pi) + sin(y - pi) * abs(cos(y - pi)) ** (1 / 2) / (sin(y - pi) + 1.4)) * x / 4 )
+
+
 def task8():
     processor(lambda x, y: 4 * sin(2 * y) * x / 4)
 
@@ -112,6 +117,6 @@ def task11():
     processor(lambda x, y: y * 5 + sin(y * wave_freq) * wave_amp / 5 * -y, create_inf=True)
 
 
-run_task = 10
+run_task = 12
 eval(f'task{run_task}()')
 root.mainloop()
